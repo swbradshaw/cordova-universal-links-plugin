@@ -20,6 +20,11 @@ module.exports = {
 function writePreferences(cordovaContext, pluginPreferences) {
   var pathToManifest = path.join(cordovaContext.opts.projectRoot, 'platforms', 'android', 'AndroidManifest.xml');
   var manifestSource = xmlHelper.readXmlAsJson(pathToManifest);
+  if (manifestSource === undefined) {
+    // try Cordova Android 7 project location
+    pathToManifest = path.join(cordovaContext.opts.projectRoot, 'platforms', 'android', 'app','src','main','AndroidManifest.xml');
+    manifestSource = xmlHelper.readXmlAsJson(pathToManifest);
+  }
   var cleanManifest;
   var updatedManifest;
 
